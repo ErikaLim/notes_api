@@ -8,13 +8,19 @@ class NotesController < ApplicationController
   end
 
   def create
-    @note = Note.new(notes_param)
-    @note.save
+    note = Note.new(notes_param)
+    note.save
+  end
+
+  def destroy
+    note = Note.find(params[:id])
+    note.destroy
+    render json:note
   end
 
   private
 
   def notes_param
-    params.require(:note).permit(:title, :body)
+    params.require(:note).permit(:title, :body, :id)
   end
 end
